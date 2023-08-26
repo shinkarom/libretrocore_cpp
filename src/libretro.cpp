@@ -175,6 +175,12 @@ static void audio_set_state(bool enable)
    (void)enable;
 }
 
+static void keyboard_cb(bool down, unsigned keycode,
+      uint32_t character, uint16_t mod)
+{
+
+}
+
 void retro_run(void)
 {
    update_input();
@@ -208,6 +214,9 @@ bool retro_load_game(const struct retro_game_info *info)
    snprintf(retro_game_path, sizeof(retro_game_path), "%s", info->path);
    struct retro_audio_callback audio_cb = { audio_callback, audio_set_state };
    use_audio_cb = environ_cb(RETRO_ENVIRONMENT_SET_AUDIO_CALLBACK, &audio_cb);
+
+	struct retro_keyboard_callback cb = { keyboard_cb };
+   environ_cb(RETRO_ENVIRONMENT_SET_KEYBOARD_CALLBACK, &cb);
 
    check_variables();
 
