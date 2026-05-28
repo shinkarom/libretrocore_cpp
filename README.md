@@ -10,12 +10,9 @@
 To build **libretrocore**, you must have [CMake](https://cmake.org) and a build system of your choice.
 
 1. Download the repository.
-2. Create a `build` folder there.
-3. Move into the `build` folder.
-4. Run `cmake .. -G "Ninja"` (CMake supports many different build systems; [Ninja](https://ninja-build.org) is just one of them).
-5. When finished, move back to the repository root.
-6. Run `cmake --build build`.
-7. When finished, you will find `libretrocore.dll` or `libretrocore.so` in the `bin` folder.
+2. Run `cmake -B build -G "Ninja"` (CMake supports many different build systems; [Ninja](https://ninja-build.org) is just one of them).
+3. Run `cmake --build build`.
+4. When finished, you will find `libretrocore.dll` or `libretrocore.so` in the `bin` folder.
 
 ## Running
 
@@ -28,7 +25,7 @@ retroarch -L path/to/libretrocore.so path/to/game_file
 For example, if you are on a GNU/Linux system and located in the repository root, you can run:
 
 ```
-retroarch -L build/libretrocore.so build/snake.cart
+retroarch -L bin/libretrocore.so bin/snake.cart
 ```
 
 ## Installing
@@ -52,7 +49,7 @@ cp bin/libretrocore.info ~/.config/retroarch/info/
 Copy the dynamic library to the cores directory:
 
 ```
-cp bun/libretrocore.dylib ~/Library/Application\ Support/RetroArch/cores/
+cp bin/libretrocore.dylib ~/Library/Application\ Support/RetroArch/cores/
 ```
 
 Copy the info file:
