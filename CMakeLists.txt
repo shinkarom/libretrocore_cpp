@@ -26,11 +26,17 @@ set(CMAKE_SHARED_LIBRARY_PREFIX "")
 
 add_library(${LIBNAME} SHARED src/libretro.cpp)
 
-if(WIN32 AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-    set_target_properties(${LIBNAME} PROPERTIES LINK_FLAGS "-static -static-libgcc -static-libstdc++")
-    
-    # Also force statically linking the threading library
-    target_link_libraries(${LIBNAME} PRIVATE "-Wl,-Bstatic" pthread "-Wl,-Bdynamic")
+if(MINGW)
+    # 1. Force the linker into fully static mode for C, C++, and Threads
+    target_link_options(${LIBNAME} PRIVATE 
+        "-static" 
+        "-static-libgcc" 
+        "-static-libstdc++" 
+        "-Wl,-Bstatic" 
+        "-lstdc++" 
+        "-lpthread" 
+		"-lwinpthread"
+    )
 endif()
 
 # In-source build output directories
